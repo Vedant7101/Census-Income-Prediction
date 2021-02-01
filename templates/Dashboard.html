@@ -1,0 +1,340 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Census Income Prediction</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style>
+
+	.tablink {
+	  background-color: #555;
+	  color: white;
+	  float: left;
+	  border: none;
+	  outline: none;
+	  cursor: pointer;
+	  padding: 14px 16px;
+	  font-size: 17px;
+	  width: 50%;
+	}
+
+	.tablink:hover {
+	  background-color: #777;
+	}
+
+	.tabcontent {
+	  color: white;
+	  display: none;
+	  padding: 50px;
+	  text-align: center;
+	}
+
+	#tab1 {
+	  padding-left: 7.5%;
+	}
+
+	#tab2 {
+	  font-family: Arial, Helvetica, sans-serif;
+	  height: 100%;
+	  padding-top: 5%;
+	  background-image: linear-gradient(to right, #fe5722, #ff9700);
+	}
+
+	* {
+	  box-sizing: border-box;
+	}
+
+	.container {
+	  margin-left: 12.5%;
+	  width: 75%;
+	  padding: 1%;
+	  background-color: white;
+	  border-radius: 15px 50px;
+	}
+
+	.dialogContainer {
+	  width: 30%;
+	  display: inline-block;
+	  margin: 0% 1.5% 0% 1.5%;
+	}
+
+	input, select {
+	  width: 100%;
+	  padding: 15px;
+	  border: none;
+	  background: #f1f1f1;
+	}
+
+	label {
+	  width: 100%;
+	  padding: 15px;
+	  display: inline-block;
+	  margin: 0% 1.5% 0% 1.5%;
+	  border: none;
+	}
+
+	input[type=text]:focus, input[type=password]:focus {
+	  background-color: #ddd;
+	  outline: none;
+	}
+
+	hr {
+	  border: 1px solid #f1f1f1;
+	  margin-bottom: 15px;
+	  margin-top: 15px;
+	}
+
+	.registerbtn {
+	  background-color: #4CAF50;
+	  color: white;
+	  padding: 16px 20px;
+	  margin: 8px 0;
+	  border: none;
+	  cursor: pointer;
+	  width: 25%;
+	  margin-left: 37.5%;
+	  opacity: 0.9;
+	  border-radius: 25px;
+	  font-size: 20px;
+	}
+
+	.registerbtn:hover {
+	  opacity: 1;
+	}
+
+	a {
+	  color: dodgerblue;
+	}
+
+	.signin {
+	  background-color: #f1f1f1;
+	  text-align: center;
+	}
+
+	#output {
+	  width: 30%;
+	  color: white;
+	  margin-left: 35%;
+	  font-size: 25px;
+	  margin-top: 1.5%;
+	  text-align: center;
+	}
+
+	#face {
+	  margin-left: 47%;
+	  font-size: 100px;
+	}
+	</style>
+</head>
+<script>
+	function myFunction() {
+	var name = $('#name').val();
+	var age = $('#age').val();
+	var workclass = $('#workclass').val();
+	var edunum = $('#edunum').val();
+	var marital = $('#marital').val();
+	var occupation = $('#occupation').val();
+	var relation = $('#relation').val();
+	var gender = $('#gender').val();
+	var hours = $('#hours').val();
+	var gain = $('#gain').val();
+	var loss = $('#loss').val();
+	  $.ajax({
+		      url: "/join",
+		      type: "POST",
+		      data: {name : name, age : age, workclass : workclass, edunum : edunum, 				marital : marital, relation : relation, occupation : occupation, gender : 				gender, hours : hours, gain : gain, loss : loss}
+		  }).done(function(response) {
+		    var html = name + ", your income may be ";
+		    var face = "";
+		    response =response.result;
+		         $.each(response,function(key,val){
+		         console.log(val);
+			 html += val + '.'
+			 if (val == '<=50K') {
+				face = "&#128528;";
+			 } else {
+				face = "&#128512;";
+			 }
+		        });
+			document.getElementById("output").innerHTML="";
+		        $("#output").append(html);
+			document.getElementById("face").innerHTML="";
+			$("#face").append(face)
+		    });
+	};
+</script>
+<body id='body'>
+<div style="width : 100%, height : 100%">
+	<div class="tab">
+	  <button class="tablink" onclick="switchTab('Dashboard')">Dashboard</button>
+	  <button class="tablink" onclick="switchTab('Prediction')">Prediction</button>
+	</div>
+
+	<div id='tab1'>
+		<div class='tableauPlaceholder' id='viz1606840451290' style='position: relative'>
+			<noscript>
+				<a href='#'>
+				<img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;In&#47;IncomePlots&#47;CensusIncomeAnalysis&#47;1_rss.png' style='border: none' />
+				</a>
+			</noscript>
+			<object class='tableauViz'  style='display:none;'>
+				<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+				<param name='embed_code_version' value='3' /> 
+				<param name='path' value='views&#47;IncomePlots&#47;CensusIncomeAnalysis?:language=en-GB&amp;:embed=y&amp;:display_count=y' /> 
+				<param name='toolbar' value='yes' />
+				<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;In&#47;IncomePlots&#47;CensusIncomeAnalysis&#47;1.png' /> 
+				<param name='animate_transition' value='yes' />
+				<param name='display_static_image' value='yes' />
+				<param name='display_spinner' value='yes' />
+				<param name='display_overlay' value='yes' /><param name='display_count' value='yes' />
+				<param name='language' value='en-GB' />
+			</object>
+		</div>                
+		<script type='text/javascript'>                    
+			var divElement = document.getElementById('viz1606840451290');                    
+			var vizElement = divElement.getElementsByTagName('object')[0];                    
+			if ( divElement.offsetWidth > 800 ) { 
+				vizElement.style.width='1590px';
+				vizElement.style.height='1322px';
+			} else if ( divElement.offsetWidth > 500 ) { 
+				vizElement.style.width='1590px';
+				vizElement.style.height='1322px';
+			} else { 
+				vizElement.style.width='100%';
+				vizElement.style.height='3827px';
+			}                     
+			var scriptElement = document.createElement('script');                    
+			scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+			vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+		</script>
+	</div>
+
+	<div id='tab2' style="display : none;">
+
+		<div class = "container">
+		    <h1>Prediction</h1>
+		    <hr>
+
+			<div class='dialogContainer'>
+		    	<label><b>Name</b></label><br>
+			<input type="text" name="name" id="name" required>
+			</div>
+
+			<div class='dialogContainer'>
+		    	<label><b>Age</b></label><br>
+			<input type="number" name="age" id="age" required>
+			</div>
+
+			<div class='dialogContainer'>
+		    	<label><b>Workclass</b></label><br>
+			<select name="workclass" id="workclass" required>
+		    	<option value="State-gov">State Government</option>
+		    	<option value="Self-emp-not-inc">Self-emp-not-inc</option>
+		    	<option value="Private">Private</option>
+		    	<option value="Federal-gov">Fedaral Government</option>
+		    	<option value="Local-gov">Local Government</option>
+		    	<option value="Self-emp-inc">Self-emp-inc</option>
+		    	<option value="Without-pay">Without Pay</option>
+		    	<option value="Never-worked">Never Worked</option>
+		    	</select>
+			</div>
+
+			<div class='dialogContainer'>
+		    	<label><b>Number of educational years</b></label><br>
+			<input type="number" name="edunum" id="edunum" required>
+			</div>
+
+			<div class='dialogContainer'>
+			<label><b>Marital Status</b></label><br>
+			<select name="marital" id="marital" required>
+		    	<option value="Never-married">Never Married</option>
+		    	<option value="Married-civ-spouse">Married-civ-spouse</option>
+		    	<option value="Divorced">Divorced</option>
+		    	<option value="Separated">Separated</option>
+		    	<option value="Married-AF-spouse">Married-AF-spouse</option>
+		    	<option value="Married-spouse-absent">Married-spouse-absent</option>
+		    	<option value="Widowed">Widowed</option>
+		    	</select>
+			</div>			
+
+			<div class='dialogContainer'>
+			<label><b>Occupation</b></label><br>
+			<select name="occupation" id="occupation" required>
+		    	<option value="Adm-clerical">Adm Clerical</option>
+		    	<option value="Exec-managerial">Executive Managerial</option>
+		    	<option value="Handlers-cleaners">Handlers-cleaners</option>
+		    	<option value="Prof-speciality">Pro-speciality</option>
+		    	<option value="Other-service">Other Service</option>
+		    	<option value="Sales">Sales</option>
+		    	<option value="Craft-repair">Craft Repair</option>
+		    	<option value="Transport-moving">Transport Moving</option>
+		    	<option value="Farming-Fishing">Farming-Fishing</option>
+		    	<option value="Machine-op-inspct">Machine-op-inspct</option>
+		    	<option value="Tech-support">Tech Support</option>
+		    	<option value="Protective-serv">Protective-serv</option>
+		    	<option value="Armed-Forces">Armed-Forces</option>
+		    	<option value="Priv-house-serv">Private House Service</option>
+		    	</select>
+			</div>
+
+			<div class='dialogContainer'>
+			<label><b>Relationship</b></label><br>
+			<select name="relation" id="relation" required>
+		    	<option value="Not-in-family">Not-in-family</option>
+		    	<option value="Husband">Husband</option>
+		    	<option value="Wife">Wife</option>
+		    	<option value="Own-child">Own Child</option>
+		    	<option value="Unmarried">Unmarried</option>
+		    	<option value="Other-relative">Other-relative</option>
+		    	</select>
+			</div>
+
+			<div class='dialogContainer'>
+		    	<label><b>Gender</b></label><br>
+			<select name="gender" id="gender" required>
+		    	<option value="Male">Male</option>
+		    	<option value="Female">Female</option>
+		    	</select>
+			</div>
+
+			<div class='dialogContainer'>
+			<label><b>Hours per week</b></label><br>
+			<input type="number" name="hours" id="hours" required>
+			</div>
+
+			<div class='dialogContainer'>
+		    	<label><b>Capital Gain</b></label><br>
+			<input type="number" name="gain" id="gain" required>
+			</div>
+
+			<div class='dialogContainer'>
+	    		<label><b>Capital Loss</b></label><br>
+			<input type="number" name="loss" id="loss" required>
+			</div>
+
+		    	<hr>
+
+		    	<button type="submit" class="registerbtn" onclick='myFunction()'>Predict</button>
+		</div>
+
+		<div>
+		    	<p id="output"></p>
+		    	<span id="face"></span>
+		</div>
+	</div>
+
+	<script>
+	function switchTab(tabname) {
+		tab1 = document.getElementById("tab1");
+		tab2 = document.getElementById("tab2");
+		if (tabname == 'Dashboard') {
+			tab1.style.display = 'block';
+			tab2.style.display = 'none'
+		} else {
+			tab1.style.display = 'none'
+			tab2.style.display = 'block'
+		}
+	}
+	</script>
+</div>
+</body>
+</html>
