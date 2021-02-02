@@ -17,7 +17,7 @@ dataset to predict the column income_bracket which has two possible values ">50K
 This dataset contains income of people in United States. Each row represents particular
 number of people and the number is described in fnlwgt (Final Weight).
 
-** Features **
+**Features**
 
 **1. age** - Age of group <br>
 **2. education.num** - Number of years spent on eduction <br>
@@ -30,6 +30,23 @@ number of people and the number is described in fnlwgt (Final Weight).
 **9. hours.per.week** - Number of hours spent on work <br>
 **10. income** - It is categorical features. (1 for income > 50K and 0 for income <= 50K) <br>
 
-### Data Visualization
+### Prediction Accuracy
 
-** Dashboard **
+![alt text](/images/image2.png)
+
+### Dashboard
+
+![alt text](/images/image1.png)
+
+### Prediction Portal 
+
+![alt text](/images/image3.png)
+
+### Conclusion
+
+1. Decision Tree Classifier and Random Forest Classifier works best on training data. <br>
+2. Gradient Boosting Classifier and Random Forest Classifier works best on testing data. <br>
+3. We have performed classification using Random Forest Classifier. <br>
+4. We have got 87% accuracy on training data and 84% accuracy on testing data. <br>
+5. Age, Qualification and Occupation are most important factor in this classification. <br>
+6. If age and qualification is high of person, then he/she will more likely to have income > 50K. <br>
